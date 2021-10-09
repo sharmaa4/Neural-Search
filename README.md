@@ -21,7 +21,8 @@
 | Data for indexing | Dataset of podcasts |
 | Data for querying | A text sentence or some keywords |
 | Dataset used |  Podcast Dataset     |
-| ML model used |  [`distilbert-based-uncased`](https://huggingface.co/distilbert-base-uncased) |
+| ML model used for query flow |  [`distilbert-based-uncased`](https://huggingface.co/distilbert-base-uncased) |
+| ML model used for question answering flow |  [`distilbert-based-uncased-distilled-squad`](https://huggingface.co/distilbert-base-uncased-distilled-squad) |
 
 This example shows you how to build a semantic search app powered by [Jina AI](http://www.jina.ai)'s neural search framework.  You can index and search dataset using state-of-the-art machine learning language models. This example helps teaches you about the concept of chunking and its importance in search systems. Once you've built the example, you can visualize how the system is matching inputs to output via a custom front-end we have built. 
 
