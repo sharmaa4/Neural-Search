@@ -1,7 +1,7 @@
 # Neural Search
 
 
-![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/Index%20Flow.JPG)
+
 
 [![](.github/demo.gif)](.github/demo.gif)
 
@@ -151,7 +151,9 @@ This diagram provides a visual representation of the two Flows in this example. 
 
 #### Index Flow
 
-![Index Flow](.github/index_flow.jpg)
+
+![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/Index%20Flow.JPG)
+
 
 During indexing, we have two parallel paths. The first path splits the input text into sentences, 
 then computes embeddings for the sentences and then indexes the sentence level documents.  
@@ -159,7 +161,7 @@ The second path only indexes the whole songs with their lyrics to be able to loo
 
 #### Query Flow
 
-![Search Flow](.github/query_flow.jpg)
+![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/Query%20Flow.JPG)
 
 The query flow is different than the indexing flow. During query time, we again split the query into sentences and compute the embeddings.
 Then, the indexer compares the query embeddings with the indexed embeddings and adds the indexed documents with the closest embedding distance to the query as matches.
