@@ -17,13 +17,13 @@
 ## Overview
 |  |  |
 | ------------- | ------------- |
-| Summary | This showcases a semantic text search app with a front end interface to show how chunking works.  |
-| Data for indexing | Dataset of songs |
-| Data for querying | A text sentence  |
-| Dataset used |  [Kaggle lyrics](https://www.kaggle.com/neisse/scrapped-lyrics-from-6-genres)     |
+| Summary | This showcases a question answering based semantic text search app with a front end interface to show how chunking works.  |
+| Data for indexing | Dataset of podcasts |
+| Data for querying | A text sentence or some keywords |
+| Dataset used |  Podcast Dataset     |
 | ML model used |  [`distilbert-based-uncased`](https://huggingface.co/distilbert-base-uncased) |
 
-This example shows you how to build a semantic search app powered by [Jina AI](http://www.jina.ai)'s neural search framework.  You can index and search song lyrics using state-of-the-art machine learning language models. This example helps teaches you about the concept of chunking and its importance in search systems. Once you've built the example, you can visualize how the system is matching inputs to output via a custom front-end we have built. 
+This example shows you how to build a semantic search app powered by [Jina AI](http://www.jina.ai)'s neural search framework.  You can index and search dataset using state-of-the-art machine learning language models. This example helps teaches you about the concept of chunking and its importance in search systems. Once you've built the example, you can visualize how the system is matching inputs to output via a custom front-end we have built. 
 
 ## 🐍 Build the app with Python
 
@@ -53,28 +53,15 @@ If this command runs without any error messages, you can then move onto step two
 
 ### 📥 Step 2. Download your data to search 
 
-You have two different options here. You can either use the toy-data we provide in this repo, which is quick to index but will give very poor results. Alternatively you can download a larger dataset, which takes longer to index, but you will see better results.  
+You have two different options here. You can either use the podcast dataset we provide in this repo, which is quick to index . Alternatively you can download a larger dataset, which takes longer to index, but you will see better results.  
 
-#### Toy dataset
-We have included 1000 songs' lyrics as toy data in [`lyrics-data`](lyrics-data).
-This data is ready to use with this example.  
-If you intend to use the toy data, no action is needed here. 
+#### Podcast dataset
+We have included small podcast dataset in lyrics-data directory.
 
-#### Full dataset 
-Begin by installing the Kaggle library if you haven't already done so.  You will also need to setup your API keys as [explained here](https://github.com/Kaggle/kaggle-api#api-credentials) .
-```sh
-pip install kaggle
-```
-
-Running the following bash script should perform all the steps needed to download the full dataset. 
-
-```bash
-bash get_data.sh
-```
 
 ### 🏃 Step 3. Index your data
 
-In this step, we will index our data. When we run the following command, we call our index Flow and pass our data through it. The Flow begins by breaking each song into sentences and then encoding those sentences using a language model. The data is then stored in an Index. 
+In this step, we will index our data. When we run the following command, we call our index Flow and pass our data through it. The Flow begins by breaking each podcast into sentences and words, and then encoding those sentences and words using a language model. The data is then stored in an Index. 
 
 ```sh
 python app.py -t index
@@ -82,8 +69,13 @@ python app.py -t index
 
 ### 🔎 Step 4. Query your indexed data
 
-Next, we will deploy our query Flow. This Flow will accept a search input, break it down into sentences and encode it using the same language model as above. It then performs a nearest neighbor search and finds sentences in the index which are most similar to your query sentence. 
+Next, we will deploy our query Flow. This Flow will accept a search input, break it down into sentences and words, and encode it using the same language model as above. It then performs a nearest neighbor search and finds sentences and keywords in the index which are most similar to your query sentence. 
 We have two options for querying data.
+
+### 🔎 Step 5. Upload your notes to run a query on them
+
+After you upload files wait for one to two minutes to get the index updated. After the index has been updated you can run query on the uploaded notes as well.
+
 #### REST Api
 You can use a REST API for querying data. To start the API, type:
 ```sh
@@ -102,7 +94,7 @@ python -m http.server
 Now you can open `http://0.0.0.0:8000/` in your browser and you should see a web interface. See the next section to understand your results. 
 
 ## 📉 Using the search interface and understanding your results
-Let's begin by starting with a simple one-sentence query. For example, if you add the sentence 'I am very happy today; you should see a similar result. Each of these boxes you see on the right-hand side is a song in your dataset. Each highlighted sentence is a 'match.'  A match is a similar sentence, determined by how close two vectors are in embedding space.  If you don't understand the concept of embedding spaces, we suggest you check out this guide [here](https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526) and then return to this example after. 
+Let's begin by starting with a simple one-sentence query. For example, if you add the sentence 'I am very happy today; you should see a similar result. Each of these boxes you see on the right-hand side is a podcast or note in your dataset. Each highlighted sentence is a 'match.'  A match is a similar sentence, determined by how close two vectors are in embedding space.  If you don't understand the concept of embedding spaces, we suggest you check out this guide [here](https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526) and then return to this example after. 
 
 <img width="300" alt="Screenshot 2021-04-30 at 11 56 08" src="https://user-images.githubusercontent.com/59612379/116891772-67cf2080-ac2f-11eb-9fc6-faaaa30e70bb.png">
 
@@ -111,14 +103,6 @@ Similarity can be adjusted using the breakdown slider on the left-hand side.
 As you move the slider to the right, you will see more matches appear. 
 This is because we are increasing our radius in the vector space for finding similar matches. 
 
-The relevance score you see at the bottom of the song box summarizes all the matches in a song. 
-Each match has a numeric value between 0 and 1, determining how close it is to the original input in the vector space.
-The average of these match values is the relevance score. This means that a song with only good matches will be ranked as highly relevant. 
-
-The example also allows for more complex, multi sentence queries. 
-If you input two or three sentences when querying, the query Flow will break down the total input into individual 'chunks'. 
-these chunks in this example are sentences, but you can determine what is a chunk for your own data when building Jina. 
-To calculate the relevance score, we aggregate all the match scores using the [MinRanker class](flows/executors.py). 
 
 
 ## 🔮 Overview of the files in this example
@@ -126,7 +110,7 @@ Here is a small overview if you're interested in understanding what each file in
 
 | File | Explanation |
 |---|---|
-|📃`toy-data/lyrics-toy-data1000.csv`  |Contains a small number of songs to test the example   |
+|📃`lyrics-data/lyrics-toy-data1000.csv`  |Contains a small number of podcast to test the example   |
 |📂`flows`  |Folder to store Flow configuration |
 |--- 📃`flows/index.yml`  |determines which executors should index the data, and the configuration details of these executors |
 |--- 📃`flows/index.yml`  |determines which executors should query the data, and the configuration details of these executors |
@@ -159,7 +143,7 @@ This diagram provides a visual representation of the three Flows in this example
 
 During indexing, we have two parallel paths. The first path splits the input text into sentences and words
 then computes embeddings for the sentences and words and then indexes the sentence and word level documents.  
-The second path only indexes the whole songs with their lyrics to be able to look them up later on.
+The second path only indexes the whole podcasts to be able to look them up later on.
 
 #### Query Flow
 
@@ -167,13 +151,13 @@ The second path only indexes the whole songs with their lyrics to be able to loo
 
 The query flow is different than the indexing flow. During query time, we again split the query into sentences and words, and compute the embeddings.
 Then, the indexer compares the query embeddings with the indexed embeddings and adds the indexed documents with the closest embedding distance to the query as matches.
-Then, the ranker finds a list of song id's (the songs that the matches belong to) from the matches, so that the root_indexer can then lookup all the song information and also return it.
+Then, the ranker finds a list of podcast id's (the podcats that the matches belong to) from the matches, so that the root_indexer can then lookup all the podcast information and also return it.
 The returned document has the following fields:
 ```
 document: The whole search text
 - chunks: The sentences within whole search text
-  - matches: The closest matches to the search sentence
-- matches: The whole songs which are in the chunk-matches
+  - matches: The closest matches to the search sentence or keywords
+- matches: The whole podcast which are in the chunk-matches
 ```
 
 #### Question Answering Flow
