@@ -1,7 +1,7 @@
 # Neural Search
 
 
-![alt text]()
+![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/Index%20Flow.JPG)
 
 [![](.github/demo.gif)](.github/demo.gif)
 
