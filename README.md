@@ -174,6 +174,12 @@ document: The whole search text
 - matches: The whole songs which are in the chunk-matches
 ```
 
+#### Question Answering Flow
+
+![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/Query%20Question%20Answer%20Flow.JPG)
+
+This flow receives the top K docs from the query flow and also the question based query. Then, it looks for the best possible answer out of the top K docs.
+
 ## ⏭️ Next steps, building your own app
 
 Did you like this example and are you interested in building your own? For a detailed tuturial on how to build your Jina app check out [How to Build Your First Jina App](https://docs.jina.ai/chapters/my_first_jina_app/#how-to-build-your-first-jina-app) guide in our documentation. 
