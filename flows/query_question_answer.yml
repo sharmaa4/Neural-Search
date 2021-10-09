@@ -1,0 +1,13 @@
+jtype: Flow                                                   # Now, we define the search flow for this example
+version: '1'                                                  # It is quite similar to the index flow, only the differences are explained here
+with:
+  port_expose: $JINA_PORT_2                                     # Port to run the flow on
+  cors: true                                                  # Add cross origin headers to the request responses
+executors:
+  - name: query_for_question_answer                                           # First, split the search text into sentences again
+    uses: 'Answer_Machine'
+    #- name: p2
+    #uses: MyExecutor
+    #needs: [gateway]
+    # - name: wait_both                                           # Now, we wait for both the root indexing and the sentence path to finish
+    #needs: [p2, root_indexer]                                 # Continue once these two executor are finished
