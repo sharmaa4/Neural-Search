@@ -155,15 +155,15 @@ This diagram provides a visual representation of the two Flows in this example. 
 ![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/Index%20Flow.JPG)
 
 
-During indexing, we have two parallel paths. The first path splits the input text into sentences, 
-then computes embeddings for the sentences and then indexes the sentence level documents.  
+During indexing, we have two parallel paths. The first path splits the input text into sentences and words
+then computes embeddings for the sentences and words and then indexes the sentence and word level documents.  
 The second path only indexes the whole songs with their lyrics to be able to look them up later on.
 
 #### Query Flow
 
 ![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/query_flow.jpg)
 
-The query flow is different than the indexing flow. During query time, we again split the query into sentences and compute the embeddings.
+The query flow is different than the indexing flow. During query time, we again split the query into sentences and words, and compute the embeddings.
 Then, the indexer compares the query embeddings with the indexed embeddings and adds the indexed documents with the closest embedding distance to the query as matches.
 Then, the ranker finds a list of song id's (the songs that the matches belong to) from the matches, so that the root_indexer can then lookup all the song information and also return it.
 The returned document has the following fields:
