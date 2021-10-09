@@ -1,7 +1,7 @@
 # Neural Search
 
 
-![alt text](https://whimsical.com/Hwfp5cissfxXoceyQNbwJz)
+![alt text]()
 
 [![](.github/demo.gif)](.github/demo.gif)
 
