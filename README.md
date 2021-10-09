@@ -1,4 +1,7 @@
-# Lyrics Search: Understanding Chunks
+# Neural Search
+
+
+![alt text](https://whimsical.com/Hwfp5cissfxXoceyQNbwJz)
 
 [![](.github/demo.gif)](.github/demo.gif)
 
