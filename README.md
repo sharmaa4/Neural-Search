@@ -149,7 +149,7 @@ Here is a small overview if you're interested in understanding what each file in
 ## 🌀 Flow diagram
 This diagram provides a visual representation of the three Flows in this example. Showing which executors are used in which order.
 
-![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/Query%20Question%20Answer%20Flow.JPG)
+![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/Jina%20Flow.JPG)
 
 #### Index Flow
 
