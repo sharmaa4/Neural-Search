@@ -161,7 +161,7 @@ The second path only indexes the whole songs with their lyrics to be able to loo
 
 #### Query Flow
 
-![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/query_flow.JPG)
+![alt text](https://github.com/sharmaa4/Neural-Search/blob/main/query_flow.jpg)
 
 The query flow is different than the indexing flow. During query time, we again split the query into sentences and compute the embeddings.
 Then, the indexer compares the query embeddings with the indexed embeddings and adds the indexed documents with the closest embedding distance to the query as matches.
